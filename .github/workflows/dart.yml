@@ -1,0 +1,66 @@
+name: test_software
+
+on:
+  push:
+    inputs:
+      analyze_directories:
+        required: false
+        type: string
+        default: "lib test"
+      flutter_channel:
+        required: false
+        type: string
+        default: "stable"
+      flutter_version:
+        required: false
+        type: string
+        default: "3.7.1"
+      min_coverage:
+        required: false
+        type: number
+        default: 80
+
+jobs:
+  clone:
+    runs-on: ubuntu-latest
+    steps:
+      - name: 📚 Git Checkout
+        uses: actions/checkout@v3
+
+      - name: 🐦 Setup Flutter
+        uses: subosito/flutter-action@v2
+        with:
+          flutter-version: ${{inputs.flutter_version}}
+          channel: ${{inputs.flutter_channel}}
+          cache: true
+          cache-key: flutter-:os:-:channel:-:version:-:arch:-:hash:-${{ hashFiles('**/pubspec.lock') }}
+
+      - name: 📦 Install Dependencies
+        run: |
+          flutter pub global activate very_good_cli
+          very_good packages get --recursive
+
+      - name: ✨ Check Formatting
+        run: dart format --set-exit-if-changed lib test
+
+      - name: 🕵️ Analyze
+        run: flutter analyze ${{inputs.analyze_directories}}
+
+      - name: 🧪 Run UI Tests
+        run: flutter test --test-randomize-ordering-seed random --coverage
+
+      - name: 📊 Check UI Code Coverage
+        uses: VeryGoodOpenSource/very_good_coverage@v2
+        with:
+          path: "./coverage/lcov.info"
+          min_coverage: 80
+
+      - name: 🧪 Run Domain Tests
+        run: cd ./packages/domain && flutter test --test-randomize-ordering-seed random --coverage 
+
+      - name: 📊 Check Domain Code Coverage
+        uses: VeryGoodOpenSource/very_good_coverage@v2
+        with:
+          path: "./packages/domain/coverage/lcov.info"
+          exclude: '**/data/datasource/** **/data/models/**'
+          min_coverage: 80
