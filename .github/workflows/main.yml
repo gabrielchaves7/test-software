@@ -21,7 +21,7 @@ on:
         default: 80
 
 jobs:
-  clone:
+  frontend:
     runs-on: ubuntu-latest
     steps:
       - name: 📚 Git Checkout
@@ -62,7 +62,7 @@ jobs:
           path: "./ui/packages/domain/coverage/lcov.info"
           exclude: '**/data/datasource/** **/data/models/**'
           min_coverage: 80
-  build:
+  backend:
     runs-on: ubuntu-latest
 
     steps:
@@ -71,6 +71,7 @@ jobs:
         uses: actions/setup-node@v3
         with:
           node-version: 19.x
+      - run: cd backend
       - run: npm ci
       - run: npm run build --if-present
       - run: npm run lint
