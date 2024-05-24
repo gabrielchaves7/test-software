@@ -64,6 +64,9 @@ jobs:
           min_coverage: 80
   backend:
     runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: ./backend
 
     steps:
       - uses: actions/checkout@v3
@@ -71,7 +74,6 @@ jobs:
         uses: actions/setup-node@v3
         with:
           node-version: 19.x
-      - run: cd ./backend
       - run: npm ci
       - run: npm run build --if-present
       - run: npm run lint
