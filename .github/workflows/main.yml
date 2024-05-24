@@ -62,3 +62,22 @@ jobs:
           path: "./ui/packages/domain/coverage/lcov.info"
           exclude: '**/data/datasource/** **/data/models/**'
           min_coverage: 80
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v3
+      - name: Use Node.js 19.x
+        uses: actions/setup-node@v3
+        with:
+          node-version: 19.x
+      - run: npm ci
+      - run: npm run build --if-present
+      - run: npm run lint
+      - run: npm run test:cov
+      - name: 📊 Check Domain Code Coverage
+        uses: VeryGoodOpenSource/very_good_coverage@v2
+        with:
+          path: './coverage/lcov.info'
+          min_coverage: 80
+          exclude: 'src/app.module.ts src/http-exception-filter.ts src/main.ts src/test.helpers.ts src/**/**.module.ts src/**/controller/** '
