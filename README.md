@@ -1,6 +1,8 @@
 # Group
 Gabriel Chaves Ferreira - 2018046700
+
 Pedro Henrique Alves Moutinho - 2018118271
+
 Pedro Luis Costa Mucci - 2018046653
 
 # Introduction
