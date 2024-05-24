@@ -1,0 +1,52 @@
+name: origin_ui
+description: Origin challenge.
+version: 1.0.0+1
+publish_to: none
+
+environment:
+  sdk: ">=2.19.0 <3.0.0"
+  flutter: 3.7.1
+
+dependencies:
+  bloc: ^8.1.1
+  dartz: ^0.10.1
+  domain:
+    path: "packages/domain"
+  equatable: ^2.0.5
+  flutter:
+    sdk: flutter
+  flutter_bloc: ^8.1.2
+  flutter_localizations:
+    sdk: flutter
+  formz: ^0.4.1
+  get_it: ^7.2.0
+  intl: ^0.17.0  
+  origin_design_system:
+    git:
+      url: https://github.com/gabrielchaves7/origin_design_system
+      ref: main
+
+
+dev_dependencies:
+  bloc_test: ^9.1.1
+  flutter_test:
+    sdk: flutter
+  integration_test:
+    sdk: flutter
+  mocktail: ^0.3.0
+  very_good_analysis: ^4.0.0
+
+flutter:
+  uses-material-design: true
+  generate: true
+  fonts:
+    - family: WorkSans
+      fonts:
+        - asset: fonts/WorkSans-Regular.ttf
+        - asset: fonts/WorkSans-Medium.ttf
+          weight: 500
+        - asset: fonts/WorkSans-SemiBold.ttf
+          weight: 600
+    - family: Rubik
+      fonts:
+        - asset: fonts/Rubik-Regular.ttf
