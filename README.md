@@ -1,3 +1,8 @@
+# Group
+Gabriel Chaves Ferreira - 2018046700
+Pedro Henrique Alves Moutinho - 2018118271
+Pedro Luis Costa Mucci - 2018046653
+
 # Introduction
 We decided to use a small challenge provided by a financial company to do our TP. The challenge was developed by Origin, which is a financial company. They provided a figma [link](https://www.figma.com/design/eysSLDJFaEgGRWqHTFVehu/Take-Home-Assignment-v3?node-id=0-1&t=SZQYc41b7BNITDkA-0.) to be used as reference. The system is basically a calculator to show a financial score based on the user income and expenses. 
 
