@@ -45,20 +45,20 @@ jobs:
         run: flutter analyze ${{inputs.analyze_directories}}
 
       - name: 🧪 Run UI Tests
-        run: flutter test --test-randomize-ordering-seed random --coverage
+        run: cd ./ui && flutter test --test-randomize-ordering-seed random --coverage
 
       - name: 📊 Check UI Code Coverage
         uses: VeryGoodOpenSource/very_good_coverage@v2
         with:
-          path: "./coverage/lcov.info"
+          path: "./ui/coverage/lcov.info"
           min_coverage: 80
 
       - name: 🧪 Run Domain Tests
-        run: cd ./packages/domain && flutter test --test-randomize-ordering-seed random --coverage 
+        run: cd ./ui/packages/domain && flutter test --test-randomize-ordering-seed random --coverage 
 
       - name: 📊 Check Domain Code Coverage
         uses: VeryGoodOpenSource/very_good_coverage@v2
         with:
-          path: "./packages/domain/coverage/lcov.info"
+          path: "./ui/packages/domain/coverage/lcov.info"
           exclude: '**/data/datasource/** **/data/models/**'
           min_coverage: 80
