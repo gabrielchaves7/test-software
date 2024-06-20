@@ -7,7 +7,7 @@ import 'package:origin_ui/home/view/financial_wellness_card_front.dart';
 void main() {
   IntegrationTestWidgetsFlutterBinding.ensureInitialized();
 
-  testWidgets('Make financial wellness test', (tester) async {
+  testWidgets('Healthy financial wellness test', (tester) async {
     await tester.pumpWidget(const App());
     await tester.enterText(find.byType(OriginTextField).first, '1000');
     await tester.enterText(find.byType(OriginTextField).last, '10');
@@ -18,7 +18,57 @@ void main() {
     expect(find.text('Congratulations!').hitTestable(), findsOneWidget);
     expect(
       find
-          .text('Your financial wellness score is Healthy.', findRichText: true)
+          .text(
+            'Your financial wellness score is Healthy.',
+            findRichText: true,
+          )
+          .hitTestable(),
+      findsOneWidget,
+    );
+
+    expect(find.byType(FinancialWellnessCardFront), findsOneWidget);
+  });
+
+  testWidgets('Average financial wellness test', (tester) async {
+    await tester.pumpWidget(const App());
+    await tester.enterText(find.byType(OriginTextField).first, '1000');
+    await tester.enterText(find.byType(OriginTextField).last, '30');
+    await tester.pumpAndSettle();
+    await tester.tap(find.byType(OriginOutlinedButton).first);
+    await tester.pumpAndSettle();
+
+    expect(
+      find.text('There is room for improvement.').hitTestable(),
+      findsOneWidget,
+    );
+    expect(
+      find
+          .text(
+            'Your financial wellness score is Average.',
+            findRichText: true,
+          )
+          .hitTestable(),
+      findsOneWidget,
+    );
+
+    expect(find.byType(FinancialWellnessCardFront), findsOneWidget);
+  });
+
+  testWidgets('Unhealthy financial wellness test', (tester) async {
+    await tester.pumpWidget(const App());
+    await tester.enterText(find.byType(OriginTextField).first, '1000');
+    await tester.enterText(find.byType(OriginTextField).last, '30');
+    await tester.pumpAndSettle();
+    await tester.tap(find.byType(OriginOutlinedButton).first);
+    await tester.pumpAndSettle();
+
+    expect(find.text('Caution!').hitTestable(), findsOneWidget);
+    expect(
+      find
+          .text(
+            'Your financial wellness score is Unhealthy.',
+            findRichText: true,
+          )
           .hitTestable(),
       findsOneWidget,
     );
