@@ -7,7 +7,27 @@ import 'package:origin_ui/home/view/financial_wellness_card_front.dart';
 void main() {
   IntegrationTestWidgetsFlutterBinding.ensureInitialized();
 
-  testWidgets('Healthy financial wellness test', (tester) async {
+  testWidgets('Interact with the wellness test', (tester) async {
+    await tester.pumpWidget(const App());
+    await tester.enterText(find.byType(OriginTextField).first, '1000');
+    await tester.enterText(find.byType(OriginTextField).last, '10');
+    await tester.pumpAndSettle();
+    await tester.tap(find.byType(OriginOutlinedButton).first);
+    await tester.pumpAndSettle();
+  });
+
+  testWidgets('Input values and get backend result', (tester) async {
+    await tester.pumpWidget(const App());
+    await tester.enterText(find.byType(OriginTextField).first, '1000');
+    await tester.enterText(find.byType(OriginTextField).last, '10');
+    await tester.pumpAndSettle();
+    await tester.tap(find.byType(OriginOutlinedButton).first);
+    await tester.pumpAndSettle();
+
+    expect(find.byType(FinancialWellnessCardFront), findsOneWidget);
+  });
+
+  testWidgets('Congratulations financial wellness test', (tester) async {
     await tester.pumpWidget(const App());
     await tester.enterText(find.byType(OriginTextField).first, '1000');
     await tester.enterText(find.byType(OriginTextField).last, '10');
