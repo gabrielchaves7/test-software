@@ -53,6 +53,12 @@ jobs:
           path: "./ui/coverage/lcov.info"
           min_coverage: 80
 
+      - name: Upload UI Code coverage reports to Codecov
+        uses: codecov/codecov-action@v4.0.1
+        with:
+          token: ${{ secrets.CODECOV_TOKEN }}
+          directory: "./ui/coverage"
+
       - name: 🧪 Run Domain Tests
         run: cd ./ui/packages/domain && flutter test --test-randomize-ordering-seed random --coverage 
 
@@ -62,6 +68,12 @@ jobs:
           path: "./ui/packages/domain/coverage/lcov.info"
           exclude: '**/data/datasource/** **/data/models/**'
           min_coverage: 80
+      - name: Upload Domain Code coverage reports to Codecov
+        uses: codecov/codecov-action@v4.0.1
+        with:
+          token: ${{ secrets.CODECOV_TOKEN }}
+          directory: "./ui/packages/domain/coverage"
+          
   backend:
     runs-on: ubuntu-latest
     defaults:
